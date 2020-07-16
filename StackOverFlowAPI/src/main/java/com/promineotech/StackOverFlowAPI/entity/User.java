@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,12 +15,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class User {
 
 	private Long id;
-	private String firstName;
-	private String lastName;
-	private String emailaddress;
 	private String username;
 	private String password;
-	private Set<Vote> vote;
+	private Set<Question> questions;
+	
+	@JsonIgnore
+	private Set<Answer> answers;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,30 +30,6 @@ public class User {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getFirstname() {
-		return firstName;
-	}
-
-	public void setFirstname(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastname() {
-		return lastName;
-	}
-
-	public void setLastname(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmailaddress() {
-		return emailaddress;
-	}
-
-	public void setEmailaddress(String emailAddress) {
-		this.emailaddress = emailAddress;
 	}
 
 	public String getUsername() {
@@ -74,13 +50,22 @@ public class User {
 		this.password = passWord;
 	}
 
-	@ManyToMany(mappedBy = "users")
-	public Set<Vote> getVote() {
-		return vote;
+	@OneToMany(mappedBy = "user")
+	public Set<Answer> getAnswers() {
+		return answers;
 	}
 
-	public void setVote(Set<Vote> vote) {
-		this.vote = vote;
+	public void setAnswers(Set<Answer> answers) {
+		this.answers = answers;
+	}
+
+	@OneToMany(mappedBy = "user")
+	public Set<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(Set<Question> questions) {
+		this.questions = questions;
 	}
 
 }

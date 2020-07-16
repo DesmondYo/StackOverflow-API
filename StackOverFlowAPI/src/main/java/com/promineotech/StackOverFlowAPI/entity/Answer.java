@@ -1,6 +1,6 @@
 package com.promineotech.StackOverFlowAPI.entity;
 
-import java.util.Set;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,8 +16,8 @@ public class Answer {
 
 	private Long id;
 	private String data;
+	private Date date;
 	private User user;
-	private Set<Vote> vote;
 
 	@JsonIgnore
 	private Question question;
@@ -61,12 +60,12 @@ public class Answer {
 		this.question = question;
 	}
 
-	@OneToMany(mappedBy = "answer")
-	public Set<Vote> getVote() {
-		return vote;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setVote(Set<Vote> vote) {
-		this.vote = vote;
+	public void setDate(Date date) {
+		this.date = date;
 	}
+
 }

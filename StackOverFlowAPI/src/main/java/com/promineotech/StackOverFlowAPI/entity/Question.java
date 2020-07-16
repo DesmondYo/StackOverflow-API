@@ -1,6 +1,7 @@
 package com.promineotech.StackOverFlowAPI.entity;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.springframework.util.MultiValueMap;
+
 @Entity
 public class Question {
 
@@ -16,6 +19,9 @@ public class Question {
 	private String content;
 	private Date date;
 	private User user;
+	
+	private Set<Answer> answer;	
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,14 +41,6 @@ public class Question {
 		this.content = content;
 	}
 
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
 	@ManyToOne
 	@JoinColumn(name = "userId")
 	public User getUser() {
@@ -52,5 +50,25 @@ public class Question {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "answerId")
+	public Set<Answer> getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(Set<Answer> answer) {
+		this.answer = answer;
+	}
+
+	
 
 }
