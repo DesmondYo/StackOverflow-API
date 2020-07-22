@@ -1,2 +1,2 @@
 # StackOverflow-API
-Created a StackOverflow API knockoff implementing comments, and user data
+Created a StackOverflow API implementing comments, users, credentials for a user and an answer. 
