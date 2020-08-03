@@ -20,30 +20,31 @@ public class QuestionController {
 	private QuestionService service;
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Object> createQuestion(@RequestBody Question question) {
-		return new ResponseEntity<Object>(service.createQuestion(question), HttpStatus.CREATED);
+	public ResponseEntity<Object> createQuestion(@RequestBody Question question, @PathVariable Long userId) {
+		try {
+			return new ResponseEntity<Object>(service.createQuestion(question, userId), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
-	
+
 	@RequestMapping(value = "/{questionId}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> updateQuestion(@RequestBody Question question, @PathVariable Long id) {
+	public ResponseEntity<Object> updateQuestion(@RequestBody Question question, @PathVariable Long userId) {
 		try {
-			return new ResponseEntity<Object>(service.updateQuestion(question, id), HttpStatus.OK);
+			return new ResponseEntity<Object>(service.updateQuestion(question, userId), HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<Object>("Unable to update question.", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@RequestMapping(value = "/{questionId}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> deleteQuestion(@PathVariable Long id) {
+	public ResponseEntity<Object> deleteQuestion(@PathVariable Long userId) {
 		try {
-			service.removeQuestion(id);
-			return new ResponseEntity<Object>("Successfully deleted question with id: " + id, HttpStatus.OK);
+			service.removeQuestion(userId);
+			return new ResponseEntity<Object>("Successfully deleted question with id: " + userId, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<Object>("Unable to delete question.", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
-	
-	
-	
 
 }

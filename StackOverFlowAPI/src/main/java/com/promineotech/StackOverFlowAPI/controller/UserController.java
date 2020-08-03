@@ -44,6 +44,15 @@ public class UserController {
 		}
 	}
 
+	@RequestMapping(value = "/{id}/follows/{followId}", method = RequestMethod.POST)
+	public ResponseEntity<Object> follows(@PathVariable Long id, @PathVariable Long followId) {
+		try {
+			return new ResponseEntity<Object>(service.follow(id, followId), HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Object> getUser(@PathVariable Long id) {
 		try {
@@ -54,12 +63,12 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> updateUser(@RequestBody User user, @PathVariable Long id) {
+	public ResponseEntity<Object> updateUserInfo(@RequestBody User user, @PathVariable Long id) {
 		try {
 			return new ResponseEntity<Object>(service.updateUserInfo(user, id), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.NOT_FOUND);
-			
+
 		}
 	}
 

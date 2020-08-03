@@ -2,10 +2,14 @@ package com.promineotech.StackOverFlowAPI.entity;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,7 +22,10 @@ public class User {
 	private String username;
 	private String password;
 	private Set<Question> questions;
-	
+
+	@JsonIgnore
+	private Set<User> following;
+
 	@JsonIgnore
 	private Set<Answer> answers;
 
@@ -68,4 +75,13 @@ public class User {
 		this.questions = questions;
 	}
 
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "following", joinColumns = @JoinColumn(name = "userId", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "followingId", referencedColumnName = "id"))
+	public Set<User> getFollowing() {
+		return following;
+	}
+
+	public void setFollowing(Set<User> following) {
+		this.following = following;
+	}
 }

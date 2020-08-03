@@ -9,8 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import org.springframework.util.MultiValueMap;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Question {
@@ -19,9 +18,8 @@ public class Question {
 	private String content;
 	private Date date;
 	private User user;
-	
-	private Set<Answer> answer;	
-	
+
+	private Set<Answer> answer;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -59,8 +57,7 @@ public class Question {
 		this.date = date;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "answerId")
+	@OneToMany(mappedBy = "question")
 	public Set<Answer> getAnswer() {
 		return answer;
 	}
@@ -68,7 +65,4 @@ public class Question {
 	public void setAnswer(Set<Answer> answer) {
 		this.answer = answer;
 	}
-
-	
-
 }

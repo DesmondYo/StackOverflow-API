@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.promineotech.StackOverFlowAPI.entity.Answer;
+import com.promineotech.StackOverFlowAPI.entity.Question;
 import com.promineotech.StackOverFlowAPI.entity.User;
 import com.promineotech.StackOverFlowAPI.repository.AnswerRepository;
+import com.promineotech.StackOverFlowAPI.repository.QuestionRepository;
 import com.promineotech.StackOverFlowAPI.repository.UserRepository;
 
 @Service
@@ -23,17 +25,22 @@ public class AnswerService {
 	@Autowired
 	private UserRepository userRepo;
 
+	@Autowired
+	private QuestionRepository questionRepo;
+
 	public Iterable<Answer> getAllAnswers() {
 		return repo.findAll();
 	}
 
-	public Answer createAnswer(Answer answer, Long userId) throws Exception {
+	public Answer createAnswer(Answer answer, Long userId, Long questionId) throws Exception {
 		User user = userRepo.findOne(userId);
-		if (user == null) {
-			throw new Exception("This user is not valid. Please try again.");
+		Question question = questionRepo.findOne(questionId);
+		if (user == null || question == null) {
+			throw new Exception("The user or the question does not exist, please try again.");
 		}
 		answer.setDate(new Date());
 		answer.setUser(user);
+		answer.setQuestion(question);
 		return repo.save(answer);
 	}
 
