@@ -46,4 +46,9 @@ public class AnswerController {
 
 	}
 
+	@RequestMapping(value = "/{answerId}/upVote", method = RequestMethod.POST)
+	public ResponseEntity<Object> incrementVoteCount() {
+		return new ResponseEntity<Object>(service.incrementVoteCount(), HttpStatus.OK);
+	}
+
 }

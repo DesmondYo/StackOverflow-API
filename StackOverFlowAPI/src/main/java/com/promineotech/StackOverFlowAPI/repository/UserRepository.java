@@ -4,8 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.promineotech.StackOverFlowAPI.entity.User;
 
-public interface UserRepository extends CrudRepository<User, Long>{
+public interface UserRepository extends CrudRepository<User, Long> {
 
-	public User findbyUsername(String username);
-	
+	public User findByUsername(String username);
+
 }

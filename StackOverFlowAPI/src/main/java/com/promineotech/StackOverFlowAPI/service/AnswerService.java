@@ -53,4 +53,11 @@ public class AnswerService {
 		}
 	}
 
+	public Answer incrementVoteCount() {
+		Answer answer = new Answer();
+
+		answer.setTotalVotes(answer.getTotalVotes() + 1);
+		return answer;
+	}
+
 }

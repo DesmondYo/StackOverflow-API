@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,6 +19,7 @@ public class Answer {
 	private String data;
 	private Date date;
 	private User user;
+	private Long totalVotes;
 
 	@JsonIgnore
 	private Question question;
@@ -66,5 +68,14 @@ public class Answer {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	@OneToMany(mappedBy = "answer")
+	public Long getTotalVotes() {
+		return totalVotes;
+	}
+
+	public void setTotalVotes(Long totalVotes) {
+		this.totalVotes = totalVotes;
 	}
 }
