@@ -51,4 +51,9 @@ public class AnswerController {
 		return new ResponseEntity<Object>(service.incrementVoteCount(), HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/{answerId}/downVote", method = RequestMethod.POST)
+	public ResponseEntity<Object> decrementVotes() {
+		return new ResponseEntity<Object>(service.decrementVotes(), HttpStatus.OK);
+	}
+
 }
